@@ -1,5 +1,5 @@
-const { Project, Clients } = require('./dataSample')
-const {GraphQLObjectType, GraphQLString, GraphQLSchema} = require('graphql');
+const { projects, clients } = require('./dataSample.js')
+const {GraphQLObjectType, GraphQLID, GraphQLString, GraphQLSchema} = require('graphql');
 
 //Client Type
 const ClientType = new GraphQLObjectType({
@@ -21,9 +21,9 @@ const RootQuery = new GraphQLObjectType({
             //the below argument allows us to know which client we are getting
             args: {id: {type: GraphQLID}},
             //the resolver is our return that takes in a parent value and an argument 'args'. when we use mongodb we use a moongoose function to get our query
-            resolve(parentValue, args){
+            resolve(parent, args){
                 //the below is only used as we currently do not have mongodb set up yet
-                return Clients.find(client => client.id === args.id);
+                return clients.find(client => client.id === args.id);
 
             }
 

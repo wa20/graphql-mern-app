@@ -1,7 +1,7 @@
 
 // sample data used for educational purposes   
 // Projects
-const Projects = [
+const projects = [
     {
       id: '1',
       clientId: '1',
@@ -45,7 +45,7 @@ const Projects = [
   ];
   
   // Clients
-  const Clients = [
+  const clients = [
     {
       id: '1',
       name: 'Tony Stark',
@@ -78,4 +78,4 @@ const Projects = [
     },
   ];
   
-  module.exports = { Projects, Clients };
+  module.exports = { projects, clients };
