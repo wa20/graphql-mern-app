@@ -13,11 +13,33 @@ const ClientType = new GraphQLObjectType({
     })
 });
 
+//Project Type
+const ProjectType = new GraphQLObjectType({
+    name: 'Project',
+    fields: () => ({
+        id: {type: GraphQLID},
+        name: {type: GraphQLString},
+        description: {type: GraphQLString},
+        status: {type: GraphQLString},
+        //here we add a relationship to the client schema
+        client: {
+            type: ClientType,
+            resolve(parent, args){
+                //client is a child of project
+                // here we find the matching client and project ids
+                return clients.find(client => client.id === parent.clientId)
+            }
+        }
+
+    })
+});
+
 
 const RootQuery = new GraphQLObjectType({
     name: 'RootQueryType',
     fields: {
 
+ //below we request client data single and all data       
         clients: {
             type: new GraphQLList(ClientType),
             //do not need args as we do below as we are getting all clients and do need an id
@@ -36,7 +58,29 @@ const RootQuery = new GraphQLObjectType({
 
             }
 
+        },
+
+//below we request project data single and all data  
+
+        projects: {
+            type: new GraphQLList(ProjectType),
+            resolve(parent, args){
+                return projects;
+            }
+        },
+        project: {
+            type: ProjectType,
+      
+            args: {id: {type: GraphQLID}},
+            resolve(parent, args){
+            return projects.find(project => project.id === args.id);
+
+            }
+
         }
+
+
+        
     }
 })
 
