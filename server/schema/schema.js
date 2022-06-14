@@ -39,7 +39,7 @@ const ProjectType = new GraphQLObjectType({
         //client is a child of project
         // here we find the matching client and project ids
         // return clients.find(client => client.id === parent.clientId)
-        return  Client.findById(parent.clientId);
+        return Client.findById(parent.clientId);
       },
     },
   }),
@@ -142,28 +142,73 @@ const mutation = new GraphQLObjectType({
           type: new GraphQLEnumType({
             name: "ProjectStatus",
             values: {
-              "new": { value: "Not Started" },
-              "progress": { value: "In Progress" },
-              "completed": { value: "Completed" }
+              new: { value: "Not Started" },
+              progress: { value: "In Progress" },
+              completed: { value: "Completed" },
             },
           }),
           defaultValue: "Not Started",
         },
         clientId: { type: GraphQLNonNull(GraphQLID) },
       },
-      resolve(parent, args){
-          const project = new Project({
+      resolve(parent, args) {
+        const project = new Project({
+          name: args.name,
+          description: args.description,
+          status: args.status,
+          clientId: args.clientId,
+        });
+        return project.save();
+      },
+    },
+
+    //delete a project
+
+    deleteProject: {
+      type: ProjectType,
+      args: {
+        id: { type: GraphQLNonNull(GraphQLID) },
+      },
+      resolve(parent, args) {
+        return Project.findByIdAndRemove(args.id);
+      },
+    },
+
+    //update a project
+
+    updateProject: {
+      type: ProjectType,
+      args: {
+        id: { type: GraphQLNonNull(GraphQLID) },
+        name: { type: GraphQLString },
+        description: { type: GraphQLString },
+        status: {
+          type: new GraphQLEnumType({
+            name: "ProjectStatusUpdate",
+            values: {
+              new: { value: "Not Started" },
+              progress: { value: "In Progress" },
+              completed: { value: "Completed" },
+            },
+          }),
+        },
+      },
+      resolve(parent, args) {
+        //take in Id of what we want to update
+        return Project.findByIdAndUpdate(
+          args.id,
+          {
+            //here we 'set' the values we want to update
+            $set: {
               name: args.name,
               description: args.description,
               status: args.status,
-              clientId: args.clientId,
-          })
-          return project.save();
-      }
+            },
+          },
+          { new: true }
+        );
+      },
     },
-
-
-
   },
 });
 
