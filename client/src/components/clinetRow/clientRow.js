@@ -8,6 +8,8 @@ import { GET_CLIENTS } from "../../utils/queries";
 
 export default function ClientRow({client}){
 
+    
+    
     const [deleteClient] = useMutation(DELETE_CLIENT, {
         //here we tell it what it is we are trying to delete
         variables: {id: client.id},
