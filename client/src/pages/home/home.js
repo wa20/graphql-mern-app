@@ -1,3 +1,4 @@
+import React from "react";
 import Header from "../../components/header/header";
 import Clients from "../../components/clients/clients";
 import Projects from "../../components/projects/projects";
