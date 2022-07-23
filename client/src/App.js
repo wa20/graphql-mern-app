@@ -1,51 +1,48 @@
 import Header from "./components/header/header";
 import Clients from "./components/clients/clients";
-import {ApolloProvider, ApolloClient, InMemoryCache} from '@apollo/client'
+import AddClientBtn from "./components/clientModal/clientModal";
+import { ApolloProvider, ApolloClient, InMemoryCache } from "@apollo/client";
 
 const cache = new InMemoryCache({
   typePolicies: {
-      Query: {
-          fields: {
-              clients: {
-                  merge(exisitng, incoming) {
-                      return incoming
-                  }
-              },
+    Query: {
+      fields: {
+        clients: {
+          merge(exisitng, incoming) {
+            return incoming;
+          },
+        },
 
-              projects: {
-                merge(exisitng, incoming) {
-                    return incoming
-                 }
-              }
-      }
-    }
-  }
-})
-
+        projects: {
+          merge(exisitng, incoming) {
+            return incoming;
+          },
+        },
+      },
+    },
+  },
+});
 
 const client = new ApolloClient({
-  uri: 'http://localhost:8000/graphql',
+  uri: "http://localhost:8000/graphql",
   cache,
   // cache: new InMemoryCache()
-})
+});
 
 function App() {
   return (
-    <> 
-    <ApolloProvider client={client}>
+    <>
+      <ApolloProvider client={client}>
+        <Header />
 
-    <Header />
-
-      <div className="container my-5">
-       
-      <Clients />
-  
-      </div>
-   
-    
-    </ApolloProvider>
+        <div className=" d-flex align-items-center flex-column container my-5">
+          <Clients />
+        </div>
+        <div className=" d-flex align-items-center flex-column container my-5">
+          <AddClientBtn />
+        </div>
+      </ApolloProvider>
     </>
-    
   );
 }
 
