@@ -1,6 +1,6 @@
 import React from "react";
 //we use gql to make the query and useQuery to get the data and state
-import { gql, useQuery } from "@apollo/client";
+import { useQuery } from "@apollo/client";
 import ClientRow from "../clinetRow/clientRow";
 import { GET_CLIENTS } from "../../utils/queries";
 import Spinner from "../spinner/spinner";
