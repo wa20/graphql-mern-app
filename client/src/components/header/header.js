@@ -1,5 +1,6 @@
 import React from "react";
 import logo from "../assets/logo.png";
+import { Link } from "react-router-dom";
 
 export default function Header() {
   return (
@@ -16,7 +17,10 @@ export default function Header() {
     <div className="collapse navbar-collapse" id="navbarNav">
       <ul className="navbar-nav">
         <li className="nav-item">
-          <a className="nav-link active" aria-current="page" href="#">Home</a>
+        <Link to='/' className="nav-link active" aria-current="page">
+                Home
+        </Link>
+          {/* <a className="nav-link active" aria-current="page" href="">Home</a> */}
         </li>
         <li className="nav-item">
           <a className="nav-link" href="#">Menu 2</a>
