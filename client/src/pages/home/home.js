@@ -10,7 +10,7 @@ function Home() {
     <>
       {/* <Header /> */}
       <div className=" d-flex align-items-center flex-column container my-5">
-        <div className="container row  mt-5">
+        <div className="container row mt-5">
           <Projects />
         </div>
         <div className=" my-4 d-flex align-items-center flex-column container">
@@ -18,7 +18,7 @@ function Home() {
         </div>
         
       </div>
-      
+
       <span className="border-bottom mb-4 border-3"></span>
 
 
