@@ -111,7 +111,7 @@ export default function AddProjectBtn() {
                         vlaue={status}
                         onChange={(e) => setStatus(e.target.value)}
                       >
-                        <option selected>Select Status</option>
+                        {/* <option selected>Select Status</option> */}
                         <option value="new">Not Started</option>
                         <option value="progress">In Progress</option>
                         <option value="completed">Completed</option>
@@ -130,14 +130,11 @@ export default function AddProjectBtn() {
                       >
                         <option selected>Select Client</option>
                          {data.clients.map((client) => (
-                            <option key={client.id} value={client.id}>{client.name}</option>
+                        <option key={client.id} value={client.id}>{client.name}</option>
                          ))}
                       </select>
                       {/* <input className="form-control" type="phone" id="phone" value={phone} onChange={(e) => setPhone(e.target.value)}></input> */}
                     </div>
-
-
-
 
                     <div className="modal-footer">
                       {/* <button type="button" className="btn btn-secondary" data-bs-dismiss="modal" >Close</button> */}
