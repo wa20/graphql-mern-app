@@ -4,28 +4,29 @@ import { useState } from "react";
 import { useMutation, useQuery } from "@apollo/client";
 // import { ADD_PROJECT} from "../../utils/mutations";
 import { GET_PROJECTS, GET_CLIENTS } from "../../utils/queries";
+import { ADD_PROJECT } from "../../utils/mutations";
 
 export default function AddProjectBtn() {
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [clientId, setClientId] = useState("");
   const [status, setStatus] = useState("New");
+ 
+  const [addProject] = useMutation(ADD_PROJECT, {
+      variables: {name, description, status, clientId},
 
-  // const [addClient] = useMutation(ADD_CLIENT, {
-  //     variables: {name, email, phone},
+      update(cache, {data: {addProject}}){
+          const {projects } = cache.readQuery({
+              query: GET_PROJECTS
+          })
 
-  //     update(cache, {data: {addClient}}){
-  //         const {clients } = cache.readQuery({
-  //             query: GET_CLIENTS
-  //         })
-
-  //         cache.writeQuery({
-  //             query: GET_CLIENTS,
-  //             // below we concat new data to exisitng data using spread operator, or we can use this data: {clients: clients.concat([addClient])}
-  //             data: {clients: [...clients, addClient]}
-  //         })
-  //     }
-  // })
+          cache.writeQuery({
+              query: GET_PROJECTS,
+              // below we concat new data to exisitng data using spread operator, or we can use this data: {clients: clients.concat([addClient])}
+              data: {projects: [...projects, addProject]}
+          })
+      }
+  })
 
   const { loading, error, data } = useQuery(GET_CLIENTS);
 
@@ -36,7 +37,7 @@ export default function AddProjectBtn() {
       return alert("please input details");
     }
 
-    // addProject(name, description, status);
+    addProject(name, description, status);
     setName("");
     setDescription("");
     setStatus("");
@@ -112,7 +113,7 @@ export default function AddProjectBtn() {
                       >
                         <option selected>Select Status</option>
                         <option value="new">Not Started</option>
-                        <option value="in-progress">In Progress</option>
+                        <option value="progress">In Progress</option>
                         <option value="completed">Completed</option>
                       </select>
                       {/* <input className="form-control" type="phone" id="phone" value={phone} onChange={(e) => setPhone(e.target.value)}></input> */}
