@@ -19,7 +19,7 @@ export default function Projects(){
     <div>
 
         {data.projects.length > 0 ? 
-         <div className="row">
+         <div className="row g-3">
             {data.projects.map((project) => ( 
                 <ProjectCard key={project.id} project ={project}/>
             ))}
