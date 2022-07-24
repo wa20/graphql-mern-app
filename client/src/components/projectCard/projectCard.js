@@ -3,15 +3,14 @@ import React from "react";
 
 export default function ProjectCard({ project }) {
  
-
   return (
     <>
-      <div>
-        <div className="card text-center my-2">
+      <div className="col-sm-6">
+        <div className="card text-center">
           <div className="card-body">
-            <h5 className="card-title">{project.name}</h5>
+            <h5 className="card-title my-2">{project.name}</h5>
 
-            <a href={`/projects/${project.id}`} className="btn btn-primary">
+            <a href={`/project/${project.id}`} className="btn btn-sm w-50 btn-secondary mt-4">
               View Project
             </a>
           </div>
