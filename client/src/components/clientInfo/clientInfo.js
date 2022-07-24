@@ -2,7 +2,7 @@ import React from "react";
 import {FaEnvelope, FaPhone, FaIdBadge} from 'react-icons/fa'
 
 
-export default function ClintInfo({client}){
+export default function ClientInfo({client}){
 
 
     return (
